@@ -1,0 +1,25 @@
+@startuml
+actor "Сотрудник" as employee
+actor "Офис-менеджер" as manager
+actor "Системный администратор" as admin
+
+[Веб-интерфейс] as frontend
+[Backend / API] as backend
+[Модуль аутентификации] as auth
+[База данных] as db
+[Модуль уведомлений] as notify
+[Модуль отчётности] as reports
+[Корпоративная почта] as email
+
+employee --> frontend : HTTPS
+manager --> frontend : HTTPS
+admin --> frontend : HTTPS
+
+frontend --> backend : HTTP / REST API
+backend --> auth : проверка доступа
+backend --> db : SQL (CRUD)
+backend --> notify : событие бронирования
+backend --> reports : запрос аналитики
+notify --> email : SMTP
+reports --> db : SQL (выборка данных)
+@enduml
